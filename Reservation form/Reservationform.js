@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classes from './Reservationform.module.css';
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link,Switch } from 'react-router-dom';
+import Button from './Button';
+import { useHistory } from "react-router-dom";
+
+
 
 const Reservationform = (props) => {
 
     let myref= useRef();
-
-    const history = useHistory();
+    let history = useHistory();
 
     const [Data,setData] = useState({
         datalist : [
@@ -48,17 +50,18 @@ const Reservationform = (props) => {
                })
            },2000)
         },[]);
+
+        let pathChanger = () => {               
+            history.push("/");
+        }
     
    
-        function SubmitForm () {
-            let path = `/submit`; 
-            history.push(path);
-        }
+        
   
         return (
            <Router>
             <div>                               
-                <form  className={classes.Form} >
+                <div  className={classes.Form} >
                      <label>
                         Name 
                         <input ref={myref} type="text" placeholder="name" value={Data.datalist[0].name}/>
@@ -103,9 +106,9 @@ const Reservationform = (props) => {
                     <label>
                        Special Requests
                        <textarea name=" Special Requests" rows="2" cols="30" value={Data.datalist[0].specialRequest}></textarea>
-                    </label>
-                    <button onClick={SubmitForm }>Submit</button>
-                </form> 
+                     </label>
+                       <Button click={pathChanger}   />                 
+                </div> 
             </div>
            </Router>
         )
